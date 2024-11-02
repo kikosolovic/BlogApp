@@ -1,0 +1,40 @@
+﻿@model Rating.Models.User
+
+@{
+    ViewBag.Title = "Register";
+}
+<div class="row justify-content-md-center">
+    <div class="col-md-5">
+        @using (Html.BeginForm("Register", "Home", FormMethod.Post))
+        {
+            //@Html.ValidationSummary()
+            @Html.AntiForgeryToken()
+
+            <div class="card">
+                <div class="card-header">
+                    <h1>Register</h1>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.userName)
+                        @Html.TextBoxFor(m => m.userName, "", new { @class = "form-control", @placeholder = "Last Name" })
+                        @Html.ValidationMessageFor(m => m.userName, "", new { @class = "badge badge-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.password)
+                        @Html.PasswordFor(m => m.password, new { @class = "form-control", @placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.password, "", new { @class = "badge badge-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btn btn-danger" value="Register" />
+                    </div>
+                    <h4>Already have an account? @Html.ActionLink("Register", "Login", "Home")</h4>
+
+                </div>
+            </div>
+
+        }
+    </div>
+</div>

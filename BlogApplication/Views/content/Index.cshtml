@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Rating.Models.content>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rating)
+        </th>
+        <th>
+            image
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.source)
+            </td>
+            @if (Session["userId"] != null && Session["userId"].ToString() == item.authorId.ToString() || Session["isAdmin"] != null && Session["isAdmin"].ToString() == "true")
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "post", new { id = item.postId }, null) |
+                    @Html.ActionLink("Details", "Details", "post", new { id = item.postId }, null) |
+                    @Html.ActionLink("Delete", "Delete", "post", new { id = item.postId }, null)
+                </td>
+
+            }
+
+        </tr>
+    }
+
+</table>

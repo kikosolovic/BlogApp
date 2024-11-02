@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BlogApplication.Models.Blog>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table" style="background-image:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc3xqlOqb4lgTAFBgiHWXVsZ0gOnMPuaTrwQ&usqp=CAU")>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.rating)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@Html.DisplayFor(modelItem => item.image)" style="height:200px ; width:200px"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rating)
+            </td>
+            @if (Session["userId"] != null && Session["userId"].ToString() == item.authorId.ToString() || Session["isAdmin"] != null && Session["isAdmin"].ToString() == "true")
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Blog", new { id = item.blogId }, null) |
+                    @Html.ActionLink("Details", "Details", "Blog", new { id = item.blogId }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Blog", new { id = item.blogId }, null)
+                </td>
+
+            }
+
+        </tr>
+    }
+
+</table>

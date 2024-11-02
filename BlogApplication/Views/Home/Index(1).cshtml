@@ -1,0 +1,25 @@
+﻿@model IEnumerable<BlogApplication.Models.Blog>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div >
+    @foreach (var item in Model)
+    {
+        <hr />
+        <h3>
+            @Html.ActionLink(item.title, "Details", "Blog", new { id = item.blogId }, null)
+        </h3>
+        <p>
+            @item.rating
+        </p>
+        if (Session["userId"] != null && Session["userId"].ToString() == item.authorId.ToString() || Session["isAdmin"] != null && Session["isAdmin"].ToString() == "true")
+        {
+    <div>
+        @Html.ActionLink("Edit", "Edit", "Blog", new { id = item.blogId }, null) |
+        @Html.ActionLink("Delete", "Delete", "Blog", new { id = item.blogId }, null)
+    </div>
+        }
+
+    }
+</div>
